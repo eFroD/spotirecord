@@ -1,0 +1,3 @@
+# Specify the name of the device on which the playback should
+# be started. Make sure that the device is online.
+device_name: DEVICE_NAME

@@ -1,1 +1,1 @@
-from .config_parser import read_client_data
+from .config_parser import read_client_data, read_config

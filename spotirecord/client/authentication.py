@@ -21,8 +21,7 @@ def authenticate():
 
     if not config_path.exists():
         create_client()
-    else:
-        return get_access_token()
+    return get_access_token()
 
 
 def create_client():

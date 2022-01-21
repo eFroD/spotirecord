@@ -1,5 +1,6 @@
 """Client related utilities"""
 import base64
+from urllib.parse import urlparse
 
 
 def create_authorization_header(client_id, client_secret):
@@ -16,3 +17,18 @@ def create_authorization_header(client_id, client_secret):
         "Content-Type": "application/x-www-form-urlencoded"
     }
     return header
+
+
+def extract_uri(url):
+    """
+    Extracts the uri from the given url.
+
+    Args:
+        url: the url, that is also used for sharing tracks or albums.
+
+    Returns:
+        the uri to use it for the web api.
+    """
+    path = urlparse(url).path
+    uri = "spotify"+":".join(path.split("/"))
+    return uri

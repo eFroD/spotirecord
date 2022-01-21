@@ -10,3 +10,8 @@ client = basepath / "client.yml"
 def read_client_data():
     with open(client, "r") as file:
         return yaml.safe_load(file)
+
+
+def read_config():
+    with open(config, "r") as file:
+        return yaml.safe_load(file)
