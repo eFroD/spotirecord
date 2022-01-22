@@ -3,6 +3,17 @@ import base64
 from urllib.parse import urlparse
 
 
+def create_access_header(access_token):
+    """
+    Creates the headers for a get request
+    """
+    headers = {
+        "Authorization": "Bearer " + access_token,
+        "Content-Type": "application/json"
+    }
+    return headers
+
+
 def create_authorization_header(client_id, client_secret):
     """
     Creates the correctly encoded headers for access_token requests

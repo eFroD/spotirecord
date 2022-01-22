@@ -5,6 +5,7 @@ import time
 
 from spotirecord.config import read_config, write_client_data, read_client_data
 from .authentication import authenticate
+from .utils import create_access_header
 
 conf = read_config()
 client_data = read_client_data()
@@ -35,10 +36,7 @@ def _get_devices():
     """
     endpoint = "https://api.spotify.com/v1/me/player/devices"
     token = authenticate()
-    headers = {
-        "Authorization": "Bearer " + token,
-        "Content-Type": "application/json"
-    }
+    headers = create_access_header(token)
     devices = requests.get(endpoint, headers=headers)
     if devices.status_code == 200:
         return devices.json()["devices"]
