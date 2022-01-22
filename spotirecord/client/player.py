@@ -69,3 +69,8 @@ class Player:
         else:
             raise ConnectionError(f"Connection failed. Status code: {skip_result.status_code}\n"
                                   f"Original message: {skip_result.text}")
+
+    @staticmethod
+    def get_album_cover():
+        """Returns the url of the album cover that is currently playing."""
+        return client.get_current_album_cover()

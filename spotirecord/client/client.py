@@ -45,3 +45,17 @@ def _get_devices():
         raise ConnectionError(f"API status code {devices.status_code}: {message} ")
 
 
+def get_current_album_cover():
+    """Returns the id of the album that is currently played."""
+    endpoint = "https://api.spotify.com/v1/me/player"
+    access_token = authenticate()
+    headers = create_access_header(access_token)
+    playback_state = requests.get(endpoint, headers=headers)
+    if playback_state.status_code == 200:
+        state = playback_state.json()
+        album_cover_url = state["item"]["album"]["images"][0]["url"]
+        return album_cover_url
+
+    else:
+        message = json.loads(playback_state.text)["error"]["message"]
+        raise ConnectionError(f"API status code {playback_state.status_code}: {message} ")

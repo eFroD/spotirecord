@@ -1,6 +1,5 @@
 """This module is used if the user has no authentication settings yet."""
 import sys
-import yaml
 import requests
 import webbrowser
 from urllib.parse import urlparse, parse_qs
