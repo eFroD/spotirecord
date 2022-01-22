@@ -28,8 +28,6 @@ def create_client():
     """
     Initiates the whole creation procedure of a new client.
 
-    Args:
-        config_path: The location where the client data should be written.
     """
     scope = "user-read-playback-state user-modify-playback-state streaming"
     print("In order to use this program you need to register an app as a developer.")
