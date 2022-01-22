@@ -56,6 +56,8 @@ def get_current_album_cover():
         album_cover_url = state["item"]["album"]["images"][-1]["url"]
         return album_cover_url
 
+    elif playback_state.status_code == 204:
+        return None
     else:
-        message = json.loads(playback_state.text)["error"]["message"]
-        raise ConnectionError(f"API status code {playback_state.status_code}: {message} ")
+
+        raise ConnectionError(f"API status code {playback_state.status_code}: {playback_state.text} ")
