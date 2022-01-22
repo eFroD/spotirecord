@@ -53,7 +53,7 @@ def get_current_album_cover():
     playback_state = requests.get(endpoint, headers=headers)
     if playback_state.status_code == 200:
         state = playback_state.json()
-        album_cover_url = state["item"]["album"]["images"][0]["url"]
+        album_cover_url = state["item"]["album"]["images"][-1]["url"]
         return album_cover_url
 
     else:
