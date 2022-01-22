@@ -6,7 +6,7 @@ import webbrowser
 from urllib.parse import urlparse, parse_qs
 from pathlib import Path
 
-from spotirecord.config import read_client_data
+from spotirecord.config import read_client_data, write_client_data
 from .utils import create_authorization_header
 
 basepath = Path(__file__)
@@ -39,10 +39,11 @@ def create_client():
     print("Come back, when you are ready.")
     client_id = input("Please enter the client id from your spotify dashboard: ")
     client_secret = input("Now enter the client secret: ")
-    print("Thanks, follow the directions in the browser.\n"
+    auth_url = f"https://accounts.spotify.com/authorize?client_id={client_id}&response_type=code&redirect_uri=http://localhost:8800&scope={scope}"
+    print("Thanks, follow the directions in the browser.\nAlternatively, you can open this link:\n"
+          f"\"{auth_url}\"\n"
           "After successfully logging in to spotify, ignore the page that opens up, just copy the link from your browser in here and press ENTER")
-    webbrowser.open(f"https://accounts.spotify.com/authorize?client_id={client_id}&"
-                    f"response_type=code&redirect_uri=http://localhost:8800&scope={scope}")
+    webbrowser.open(auth_url)
     auth_code_url = input("Paste the url from your browser: ")
     try:
         auth_code = parse_qs(urlparse(auth_code_url).query)["code"][0]
@@ -60,10 +61,10 @@ def create_client():
     access_response = requests.post("https://accounts.spotify.com/api/token", data=params, headers=header).json()
     refresh_token = access_response["refresh_token"]
     print(f"Successfully connected!\nYour data will be written at '{config_path}'.")
-    with open(config_path, "w") as out:
-        yaml.dump({"client_id": client_id,
+    data = {"client_id": client_id,
                    "client_secret": client_secret,
-                   "refresh_token": refresh_token}, out, default_flow_style=False)
+                   "refresh_token": refresh_token}
+    write_client_data(data)
 
 
 def get_access_token():
