@@ -53,7 +53,7 @@ def run():
                 cover = player.get_album_cover()
                 best_colors = get_best_color(cover)
                 light_controller.stop_animation()
-                light_controller.fade_in(best_colors)
+                light_controller.set_album_color(best_colors)
     except KeyboardInterrupt:
         light_controller.cleanup()
         player.pause_playback()

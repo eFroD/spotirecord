@@ -20,6 +20,8 @@ class LightController:
 
     def set_ready(self):
         """Fades in the light in the spotify color."""
+        self.animation_thread.join()
+        self.animation_thread = None
         self.fade_in(self.spotify_color)
 
     def set_animation(self, mode, as_thread=True):
@@ -42,7 +44,6 @@ class LightController:
         """Stops the thread that controls the seeking light animation"""
         if self.animation_thread:
             self.animation_thread.do_run = False
-            self.animation_thread = None
 
     def set_error(self):
         """Sets the light to the error color"""
@@ -73,6 +74,11 @@ class LightController:
             self.strip.setBrightness(i)
             self.strip.show()
             time.sleep(wait_time_ms/1000.0)
+
+    def set_album_color(self, color):
+        self.animation_thread.join()
+        self.animation_thread = None
+        self.fade_in(color)
 
     def start_animation_thread(self, mode):
         t = threading.currentThread()
