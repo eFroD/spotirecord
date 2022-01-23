@@ -3,6 +3,7 @@ import time
 
 from spotirecord.lights import LightController
 from spotirecord.client import Player
+from spotirecord.image import get_best_color
 
 
 def seek_device(light_controller):
@@ -47,7 +48,12 @@ def run():
                 player.pause_playback()
             else:
                 print("Starting...")
+                light_controller.set_animation("loading")
                 player.play_album(url)
+                cover = player.get_album_cover()
+                best_colors = get_best_color(cover)
+                light_controller.stop_animation()
+                light_controller.fade_in(best_colors)
     except KeyboardInterrupt:
         light_controller.cleanup()
         player.pause_playback()

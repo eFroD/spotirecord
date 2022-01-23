@@ -45,7 +45,7 @@ class Player:
         access_token = client.authenticate()
         header = utils.create_access_header(access_token)
         pause_result = requests.put(endpoint, params={"device_id": self.device}, headers=header)
-        if pause_result.status_code == 204:
+        if pause_result.status_code == 204 or pause_result.status_code == 202:
             print("paused.")
         else:
             raise ConnectionError(f"Connection failed. Status code: {pause_result.status_code}")
