@@ -15,6 +15,8 @@ class LightController:
 
     def set_ready(self):
         """Fades in the light in the spotify color."""
+        self.fade_out(wait_time_ms=3)
+        self.cleanup()
         self.fade_in(literal_eval(self.light_conf["spotify_color"]))
 
     def set_error(self):
@@ -28,7 +30,6 @@ class LightController:
             color: a tuple with the values (R, G, B)
             wait_time_ms: the amount of milliseconds to wait until increasing the brightness.
         """
-        self.fade_out(wait_time_ms=10)
         for i in range(self.strip.numPixels()):
             self.strip.setPixelColor(i, Color(color[0], color[1], color[2]))
         for i in range(self.max_brightness):
@@ -47,7 +48,6 @@ class LightController:
             self.strip.setBrightness(i)
             self.strip.show()
             time.sleep(wait_time_ms/1000.0)
-        self.cleanup()
 
     def cleanup(self):
         """Turns off all LEDs of the stripe."""
