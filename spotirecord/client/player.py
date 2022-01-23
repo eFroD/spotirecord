@@ -33,7 +33,7 @@ class Player:
         header = utils.create_access_header(access_token)
         playback_result = requests.put(endpoint, params={"device_id": self.device},
                                        headers=header, json=request_body)
-        if playback_result.status_code == 204:
+        if playback_result.status_code == 202 or playback_result.status_code == 200:
             print("Playing.")
         else:
             raise ConnectionError(f"Connection failed. Status code: {playback_result.status_code}\n"
