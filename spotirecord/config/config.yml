@@ -9,5 +9,5 @@ light:
   led_brightness: 200  #  the brightness of your leds (max 255)
   # The original color should be (30, 215, 96), however, depending on
   # (the quality of) your LED stripe, you may need to do adjustments.
-  spotify_color: !!python/tuple [30, 255, 10]
-  loading_color: !!python/tuple [255, 100, 0]
+  spotify_color: (30, 255, 10)
+  loading_color: (255, 100, 0)

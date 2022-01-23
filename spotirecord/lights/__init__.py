@@ -1,1 +1,1 @@
-from lights import LightController
+from .lights import LightController

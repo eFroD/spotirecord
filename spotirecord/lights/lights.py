@@ -1,6 +1,6 @@
 """This module takes care of the light controls by realizing it as a class"""
 import time
-
+from ast import literal_eval
 from rpi_ws281x import Adafruit_NeoPixel, ws, Color  # important: this module needs to run on a raspberry pi
 from spotirecord.config import read_config
 
@@ -15,7 +15,7 @@ class LightController:
 
     def set_ready(self):
         """Fades in the light in the spotify color."""
-        self.fade_in(self.light_conf["spotify_color"])
+        self.fade_in(literal_eval(self.light_conf["spotify_color"]))
 
     def set_error(self):
         """Sets the light to the error color"""
