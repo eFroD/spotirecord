@@ -46,7 +46,7 @@ def get_best_color(image_url, k=8, color_tol=10):
     else:
         # Pick the most colorful color
         best_color = centroids[np.argmax(colorfulness)]
-    return best_color[0], best_color[1], best_color[2]
+    return int(best_color[0]), int(best_color[1]), int(best_color[2])
 
 
 def calc_colorfulness(r, g, b):
