@@ -19,6 +19,7 @@ def get_device_id():
     """
     device_name = conf["device"]["device_name"]
     devices = _get_devices()
+    print(devices)
     device = next((item for item in devices if item["name"] == device_name), None)
     if device:
         return device["id"]
