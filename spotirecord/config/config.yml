@@ -6,4 +6,8 @@ device:
 # Here, the settings concerning the lights have their place
 light:
   led_count: 18  #  the number of LEDs that are on your strip
-  led_brightness: 200  #  the brightness of your leds
+  led_brightness: 200  #  the brightness of your leds (max 255)
+  # The original color should be (30, 215, 96), however, depending on
+  # (the quality of) your LED stripe, you may need to do adjustments.
+  spotify_color: !!python/tuple [30, 255, 10]
+  loading_color: !!python/tuple [255, 100, 0]
