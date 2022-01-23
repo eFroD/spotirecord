@@ -42,7 +42,7 @@ def get_best_color(image_url, k=8, color_tol=10):
     max_colorful = np.max(colorfulness)
     if max_colorful < color_tol:
         # If not colorful, set to gray
-        best_color = [230, 230, 230]
+        best_color = [120, 120, 230]
     else:
         # Pick the most colorful color
         best_color = centroids[np.argmax(colorfulness)]
