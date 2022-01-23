@@ -10,6 +10,8 @@ class LightController:
         self.light_conf = read_config()["light"]
         self.led_count = self.light_conf["led_count"]
         self.max_brightness = self.light_conf["led_brightness"]
+        self.spotify_color = literal_eval(self.light_conf["spotify_color"])
+        self.loading_color = literal_eval(self.light_conf["loading_color"])
         self.strip = Adafruit_NeoPixel(self.led_count, 18, 800000, 10, False, self.max_brightness, 0)
         self.strip.begin()
 
@@ -17,7 +19,12 @@ class LightController:
         """Fades in the light in the spotify color."""
         self.fade_out(wait_time_ms=3)
         self.cleanup()
-        self.fade_in(literal_eval(self.light_conf["spotify_color"]))
+        self.fade_in(self.spotify_color)
+
+    def set_seeking(self):
+        """Sets the light signal for seeking the device"""
+        self.fade_in(self.loading_color, wait_time_ms=5)
+        self.fade_out(wait_time_ms=5)
 
     def set_error(self):
         """Sets the light to the error color"""
