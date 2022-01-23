@@ -32,7 +32,7 @@ class LightController:
                       "stop_seeking" is called.
         """
         if as_thread:
-            self.animation_thread = threading.Thread(target=self.start_animation_thread(), args=(mode, ))
+            self.animation_thread = threading.Thread(target=self.start_animation_thread, args=(mode, ))
             self.animation_thread.start()
         else:
             self.fade_in(self.loading_color, wait_time_ms=5)
