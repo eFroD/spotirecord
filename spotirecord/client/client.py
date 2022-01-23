@@ -18,10 +18,11 @@ def get_device_id():
         The device ID that is needed for playback requests.
     """
     device_name = conf["device"]["device_name"]
-    for attempt in range(3):
-        device = next((item for item in _get_devices() if item["name"] == device_name), None)
-        if device:
-            return device["id"]
+    devices = _get_devices()
+    print(devices)
+    device = next((item for item in devices if item["name"] == device_name), None)
+    if device:
+        return device["id"]
     raise TypeError("Device not found! Check if you have provided the right name. Check also if you have opened the player.")
 
 

@@ -7,7 +7,7 @@ from spotirecord.client import Player
 
 def seek_device(light_controller):
     """Tries to obtain the specified device"""
-    for i in range(30):
+    for i in range(15):
         try:
             player = Player()
             light_controller.stop_animation()
@@ -15,6 +15,7 @@ def seek_device(light_controller):
             return player
         except TypeError:
             print(f"Still waiting for device. Attempt: {i+1}")
+            time.sleep(1)
 
     light_controller.stop_animation()
     light_controller.set_error()
