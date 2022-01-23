@@ -47,6 +47,9 @@ class LightController:
 
     def set_error(self):
         """Sets the light to the error color"""
+        if self.animation_thread:
+            self.animation_thread.join()
+            self.animation_thread = None
         self.fade_in((255, 0, 0), wait_time_ms=10)
 
     def fade_in(self, color, wait_time_ms=30):
