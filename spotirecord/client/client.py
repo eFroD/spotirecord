@@ -1,9 +1,8 @@
 """The client module manages the most important Spotify API related tasks."""
 import requests
 import json
-import time
 
-from spotirecord.config import read_config, write_client_data, read_client_data
+from spotirecord.config import read_config, read_client_data
 from .authentication import authenticate
 from .utils import create_access_header
 
@@ -23,10 +22,6 @@ def get_device_id():
         device = next((item for item in _get_devices() if item["name"] == device_name), None)
         if device:
             return device["id"]
-        else:
-            # may occur if the player is not ready yet at startup
-            print(f"Device not found at attempt {attempt+1}, trying again...")
-            time.sleep(2)
     raise TypeError("Device not found! Check if you have provided the right name. Check also if you have opened the player.")
 
 
@@ -56,7 +51,7 @@ def get_current_album_cover():
         album_cover_url = state["item"]["album"]["images"][-1]["url"]
         return album_cover_url
 
-    elif playback_state.status_code == 204:
+    elif playback_state.status_code == 204 or playback_state.status_code == 202:
         return None
     else:
 
