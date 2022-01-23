@@ -1,7 +1,7 @@
 # Specify the name of the device on which the playback should
 # be started. Make sure that the device is online.
 device:
-  device_name: Spotifyd@raspberrypi
+  device_name: raspi
 
 # Here, the settings concerning the lights have their place
 light:
