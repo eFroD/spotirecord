@@ -2,3 +2,8 @@
 # be started. Make sure that the device is online.
 device:
   device_name: DEVICE NAME
+
+# Here, the settings concerning the lights have their place
+light:
+  led_count: 18  #  the number of LEDs that are on your strip
+  led_brightness: 200  #  the brightness of your leds
