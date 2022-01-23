@@ -59,5 +59,6 @@ def run():
         except KeyboardInterrupt:
             player.pause_playback()
     finally:
-        if light_controller:
-            light_controller.cleanup()
+        if light_controller.animation_thread:
+            light_controller.stop_animation()
+        light_controller.cleanup()
