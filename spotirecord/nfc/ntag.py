@@ -45,9 +45,11 @@ while continue_reading:
             #print(f"Read from 2, this is the data: {data_3}")
             #reader.MFRC522_StopCrypto1()
             addresses = range(4, 40)
-            data = ["".join([chr(char) for char in reader.MFRC522_Read(address)]) for address in addresses]
-            print("".join(data))
-            reader.MFRC522_StopCrypto1()
+            data = []
+            for address in addresses:
+                data.append(["".join([chr(char) for char in reader.MFRC522_Read(address)])])
+                reader.MFRC522_StopCrypto1()
+            print(data)
 
 """
         if status == reader.MI_OK:
