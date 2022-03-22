@@ -4,6 +4,8 @@
 import RPi.GPIO as GPIO
 import MFRC522
 import signal
+from time import sleep
+from datetime import datetime
 
 continue_reading = True
 
@@ -28,30 +30,41 @@ print("Press Ctrl-C to stop.")
 
 
 while continue_reading:
-
     (status, tagtype) = reader.MFRC522_Request(reader.PICC_REQIDL)
     if status == reader.MI_OK:
         print(f"Found a Tag: {tagtype}")
-
         (status, uid_1) = reader.MFRC522_Anticoll()
         if status == reader.MI_OK:
-            #data = reader.MFRC522_Read(0)
-            #print(f"Read from 0, this is the data: {data}")
-            #reader.MFRC522_StopCrypto1()
-            #data_2 = reader.MFRC522_Read(1)
-            #print(f"Read from 1, this is the data: {data_2}")
-            #reader.MFRC522_StopCrypto1()
-            #data_3 = reader.MFRC522_Read(2)
-            #print(f"Read from 2, this is the data: {data_3}")
-            #reader.MFRC522_StopCrypto1()
+            # data = reader.MFRC522_Read(0)
+            # print(f"Read from 0, this is the data: {data}")
+            # reader.MFRC522_StopCrypto1()
+            # data_2 = reader.MFRC522_Read(1)
+            # print(f"Read from 1, this is the data: {data_2}")
+            # reader.MFRC522_StopCrypto1()
+            # data_3 = reader.MFRC522_Read(2)
+            # print(f"Read from 2, this is the data: {data_3}")
+            # reader.MFRC522_StopCrypto1()
             addresses = range(4, 40)
             data = []
             for address in addresses:
-                data.append(["".join([chr(char) for char in reader.MFRC522_Read(address)])])
+                data.append(["".join([chr(char) for char in reader.MFRC522_Read(hex(address))])])
                 reader.MFRC522_StopCrypto1()
             print(data)
+    """
+    status, _ = reader.MFRC522_Request(reader.PICC_REQIDL)
+    if status != reader.MI_OK:
+        sleep(0.1)
+        continue
+    status, backData = reader.MFRC522_Anticoll()
+    buf = reader.MFRC522_Read(0)
+    reader.MFRC522_Request(reader.PICC_HALT)
+    if buf:
+        print(datetime.now().isoformat(), ':'.join([hex(x) for x in buf]))
 
-"""
+
+   
+
+
         if status == reader.MI_OK:
             print(f"Found UID: {uid_1}")
             print("Trying to use the id to select the tag")
