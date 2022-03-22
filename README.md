@@ -8,3 +8,4 @@
 + in order to get numpy to work on the raspberry pi you'll need to run `sudo apt-get install libatlas-base-dev`
 + Take a look at the config at ``spotirecord/config/config.yml``
 + Go back to the root directory and run ``sudo python3 -m spotirecord``.
++ For nfc, the spi interface from [https://github.com/lthiery/SPI-Py](https://github.com/lthiery/SPI-Py) needs to be installed
