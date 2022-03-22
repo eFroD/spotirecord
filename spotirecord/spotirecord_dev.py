@@ -50,9 +50,12 @@ def run():
             while True:
                 url = ntag.read_tag()
                 if url and url != player.current_url:
+                    print("Should start playing")
                     player.current_url = url
                     start_album(url, player, light_controller)
                 if not url and not player.paused:
+                    print("should pause")
+                    player.current_url = None
                     player.pause_playback()
                 # Deprecated, to be removed
                 # url = input("Your turn: ")
