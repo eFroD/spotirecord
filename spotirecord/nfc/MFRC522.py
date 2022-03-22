@@ -357,7 +357,7 @@ class MFRC522:
     recvData.append(pOut[1])
     (status, backData, backLen) = self.MFRC522_ToCard(self.PCD_TRANSCEIVE, recvData)
     if not(status == self.MI_OK):
-      print("Error while reading!")
+      raise IOError("Could not be read")
     i = 0
     if len(backData) == 16:
       return backData
