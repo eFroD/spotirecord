@@ -36,6 +36,17 @@ while continue_reading:
             (status, uid_2) = reader.MFRC522_Anticoll()
             if status == reader.MI_OK:
                 print(f"IT WORKED, second part of uid: {uid_2}")
+                print("Selecting the tag.")
+                uid = uid_1+uid_2
+                reader.MFRC522_SelectTag(uid)
+                key = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
+                status = reader.MFRC522_Auth(reader.PICC_AUTHENT1A, 8, key, uid)
+                if status == reader.MI_OK:
+                    reader.MFRC522_Read(8)
+                    reader.MFRC522_StopCrypto1()
+                else:
+                    print("Authentication error")
+
 
             else:
                 print("did not work")
