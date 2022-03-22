@@ -45,6 +45,7 @@ while continue_reading:
     (status, tagtype) = reader.MFRC522_Request(reader.PICC_REQIDL)
     if status == reader.MI_OK:
         print(f"Found a Tag: {tagtype}")
+        (status, uid_1) = reader.MFRC522_Anticoll()
         if status == reader.MI_OK:
             url = read_tag()
             print(url)
