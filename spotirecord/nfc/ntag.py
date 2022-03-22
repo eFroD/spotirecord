@@ -28,15 +28,15 @@ while continue_reading:
     if status == reader.MI_OK:
         print(f"Found a Tag: {tagtype}")
 
-    (status, uid_1) = reader.MFRC522_Anticoll()
+        (status, uid_1) = reader.MFRC522_Anticoll()
 
-    if status == reader.MI_OK:
-        print(f"Found UID: {uid_1}")
-    print("Trying to use the id to select the tag")
-    (status, uid_2) = reader.MFRC522_SelectTag(uid_1)
-    if status == reader.MI_OK:
-        print(f"IT WORKED, second part of uid: {uid_2}")
+        if status == reader.MI_OK:
+            print(f"Found UID: {uid_1}")
+            print("Trying to use the id to select the tag")
+            (status, uid_2) = reader.MFRC522_SelectTag(uid_1)
+            if status == reader.MI_OK:
+                print(f"IT WORKED, second part of uid: {uid_2}")
 
-    else:
-        print("did not work")
+            else:
+                print("did not work")
 
