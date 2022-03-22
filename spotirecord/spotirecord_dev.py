@@ -60,6 +60,7 @@ def run():
                         print("Okay, tag is gone, should pause here.")
                         player.current_url = None
                         player.pause_playback()
+                        light_controller.set_ready()
                 # Deprecated, to be removed
                 # url = input("Your turn: ")
                 # if url == "resume":
