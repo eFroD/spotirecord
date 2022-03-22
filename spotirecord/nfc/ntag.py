@@ -41,6 +41,8 @@ while continue_reading:
             reader.MFRC522_StopCrypto1()
             data_4 = reader.MFRC522_Read(4)
             print(f"Read from 4, this is the user data: {data_4}")
+            data_5 = reader.MFRC522_Read(5)
+            print(f"Read from 5, this is the user data: {data_5}")
             reader.MFRC522_StopCrypto1()
             key = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
             status = reader.MFRC522_Auth(reader.PICC_AUTHENT1A, 8, key, data)
