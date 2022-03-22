@@ -8,6 +8,11 @@ import signal
 continue_reading = True
 
 
+def parse_link(data):
+    """parses the spotify album URL from the given data"""
+    start = "https"
+    end = "þ"
+
 def end_read(signal, frame):
     global continue_reading
     print("Ctrl+C captured, ending read.")
@@ -40,8 +45,8 @@ while continue_reading:
             #print(f"Read from 2, this is the data: {data_3}")
             #reader.MFRC522_StopCrypto1()
             addresses = range(4, 40)
-            data = [[chr(char) for char in reader.MFRC522_Read(address)] for address in addresses]
-            [print(dat) for dat in data]
+            data = ["".join([chr(char) for char in reader.MFRC522_Read(address)]) for address in addresses]
+            print("".join(data))
             reader.MFRC522_StopCrypto1()
 
 """
