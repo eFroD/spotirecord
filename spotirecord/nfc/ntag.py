@@ -47,7 +47,7 @@ while continue_reading:
             addresses = range(4, 40)
             data = []
             for address in addresses:
-                data.append(["".join([chr(char) for char in reader.MFRC522_Read(address)])])
+                data.append(["".join([chr(char) for char in reader.MFRC522_Read(address)])][-4:])
                 reader.MFRC522_StopCrypto1()
             print(data)
     """
