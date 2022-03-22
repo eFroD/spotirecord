@@ -30,27 +30,27 @@ print("Press Ctrl-C to stop.")
 
 
 while continue_reading:
-    # (status, tagtype) = reader.MFRC522_Request(reader.PICC_REQIDL)
-    # if status == reader.MI_OK:
-    #     print(f"Found a Tag: {tagtype}")
-    #     (status, uid_1) = reader.MFRC522_Anticoll()
-    #     if status == reader.MI_OK:
-    #         # data = reader.MFRC522_Read(0)
-    #         # print(f"Read from 0, this is the data: {data}")
-    #         # reader.MFRC522_StopCrypto1()
-    #         # data_2 = reader.MFRC522_Read(1)
-    #         # print(f"Read from 1, this is the data: {data_2}")
-    #         # reader.MFRC522_StopCrypto1()
-    #         # data_3 = reader.MFRC522_Read(2)
-    #         # print(f"Read from 2, this is the data: {data_3}")
-    #         # reader.MFRC522_StopCrypto1()
-    #         addresses = range(4, 40)
-    #         data = []
-    #         for address in addresses:
-    #             data.append(["".join([chr(char) for char in reader.MFRC522_Read(address)])])
-    #             reader.MFRC522_StopCrypto1()
-    #         print(data)
-
+    (status, tagtype) = reader.MFRC522_Request(reader.PICC_REQIDL)
+    if status == reader.MI_OK:
+        print(f"Found a Tag: {tagtype}")
+        (status, uid_1) = reader.MFRC522_Anticoll()
+        if status == reader.MI_OK:
+            # data = reader.MFRC522_Read(0)
+            # print(f"Read from 0, this is the data: {data}")
+            # reader.MFRC522_StopCrypto1()
+            # data_2 = reader.MFRC522_Read(1)
+            # print(f"Read from 1, this is the data: {data_2}")
+            # reader.MFRC522_StopCrypto1()
+            # data_3 = reader.MFRC522_Read(2)
+            # print(f"Read from 2, this is the data: {data_3}")
+            # reader.MFRC522_StopCrypto1()
+            addresses = range(4, 40)
+            data = []
+            for address in addresses:
+                data.append(["".join([chr(char) for char in reader.MFRC522_Read(address)])])
+                reader.MFRC522_StopCrypto1()
+            print(data)
+    """
     status, _ = reader.MFRC522_Request(reader.PICC_REQIDL)
     if status != reader.MI_OK:
         sleep(0.1)
@@ -63,7 +63,7 @@ while continue_reading:
 
 
    
-    """
+
 
         if status == reader.MI_OK:
             print(f"Found UID: {uid_1}")
