@@ -9,20 +9,23 @@ from datetime import datetime
 
 continue_reading = True
 
+
 def read_tag():
     """Reads the contents of the tag"""
     addresses = range(4, 40)
     data = []
     for address in addresses:
         read = reader.MFRC522_Read(address)
-        sleep(0.05)
-        data.extend(["".join([chr(char) for char in read])[-4:]])
-        reader.MFRC522_StopCrypto1()
+        if read:
+            data.extend(["".join([chr(char) for char in read])[-4:]])
+            reader.MFRC522_StopCrypto1()
     return parse_link("".join(data))
+
 
 def parse_link(data):
     """parses the spotify album URL from the given data"""
     return data[2:-4]
+
 
 def end_read(signal, frame):
     global continue_reading
