@@ -149,7 +149,7 @@ class MFRC522:
     self.Write_MFRC522(reg, tmp | mask)
     
   def ClearBitMask(self, reg, mask):
-    tmp = self.Read_MFRC522(reg);
+    tmp = self.Read_MFRC522(reg)
     self.Write_MFRC522(reg, tmp & (~mask))
   
   def AntennaOn(self):
