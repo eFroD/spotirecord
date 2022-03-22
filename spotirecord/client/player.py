@@ -14,6 +14,8 @@ class Player:
     """
     def __init__(self):
         self.device = client.get_device_id()
+        self.current_url = None
+        self.paused = True
 
     def play_album(self, url=None, resume=False):
         """
@@ -35,6 +37,7 @@ class Player:
                                        headers=header, json=request_body)
         if playback_result.status_code == 202 or playback_result.status_code == 200:
             print("Playing.")
+            self.paused = False
         else:
             raise ConnectionError(f"Connection failed. Status code: {playback_result.status_code}\n"
                                   f"Original message: {playback_result.text}")
@@ -47,6 +50,7 @@ class Player:
         pause_result = requests.put(endpoint, params={"device_id": self.device}, headers=header)
         if pause_result.status_code == 204 or pause_result.status_code == 202:
             print("paused.")
+            self.paused = True
         else:
             raise ConnectionError(f"Connection failed. Status code: {pause_result.status_code}")
 
