@@ -31,8 +31,16 @@ while continue_reading:
         (status, uid_1) = reader.MFRC522_Anticoll()
         if status == reader.MI_OK:
             data = reader.MFRC522_Read(0)
-            print(f"Read from 0, this ist the data: {data}")
-            reader.MFRC522_StopCrypto1()
+            print(f"Read from 0, this is the data: {data}")
+            key = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
+            status = reader.MFRC522_Auth(reader.PICC_AUTHENT1A, 8, key, data)
+
+            if status == reader.MI_OK:
+                reader.MFRC522_Read(8)
+                reader.MFRC522_StopCrypto1()
+            else:
+                print("Authentication error")
+
 """
         if status == reader.MI_OK:
             print(f"Found UID: {uid_1}")
