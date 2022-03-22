@@ -33,7 +33,7 @@ while continue_reading:
         if status == reader.MI_OK:
             print(f"Found UID: {uid_1}")
             print("Trying to use the id to select the tag")
-            (status, uid_2) = reader.MFRC522_SelectTag(uid_1)
+            (status, uid_2) = reader.MFRC522_Anticoll()
             if status == reader.MI_OK:
                 print(f"IT WORKED, second part of uid: {uid_2}")
 
