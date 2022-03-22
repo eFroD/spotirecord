@@ -40,7 +40,7 @@ while continue_reading:
             #print(f"Read from 2, this is the data: {data_3}")
             #reader.MFRC522_StopCrypto1()
             addresses = range(4, 40)
-            data = [reader.MFRC522_Read(address) for address in addresses]
+            data = [[chr(char) for char in reader.MFRC522_Read(address)] for address in addresses]
             [print(dat) for dat in data]
             reader.MFRC522_StopCrypto1()
 
