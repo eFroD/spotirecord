@@ -9,11 +9,18 @@ from datetime import datetime
 
 continue_reading = True
 
+def read_tag():
+    """Reads the contents of the tag"""
+    addresses = range(4, 40)
+    data = []
+    for address in addresses:
+        data.extend(["".join([chr(char) for char in reader.MFRC522_Read(address)])[-4:]])
+        reader.MFRC522_StopCrypto1()
+    return parse_link("".join(data))
 
 def parse_link(data):
     """parses the spotify album URL from the given data"""
-    start = "https"
-    end = "þ"
+    return data[2:-4]
 
 def end_read(signal, frame):
     global continue_reading
@@ -33,56 +40,7 @@ while continue_reading:
     (status, tagtype) = reader.MFRC522_Request(reader.PICC_REQIDL)
     if status == reader.MI_OK:
         print(f"Found a Tag: {tagtype}")
-        (status, uid_1) = reader.MFRC522_Anticoll()
         if status == reader.MI_OK:
-            # data = reader.MFRC522_Read(0)
-            # print(f"Read from 0, this is the data: {data}")
-            # reader.MFRC522_StopCrypto1()
-            # data_2 = reader.MFRC522_Read(1)
-            # print(f"Read from 1, this is the data: {data_2}")
-            # reader.MFRC522_StopCrypto1()
-            # data_3 = reader.MFRC522_Read(2)
-            # print(f"Read from 2, this is the data: {data_3}")
-            # reader.MFRC522_StopCrypto1()
-            addresses = range(4, 40)
-            data = []
-            for address in addresses:
-                data.extend(["".join([chr(char) for char in reader.MFRC522_Read(address)])[-4:]])
-                reader.MFRC522_StopCrypto1()
-            print("".join(data))
-    """
-    status, _ = reader.MFRC522_Request(reader.PICC_REQIDL)
-    if status != reader.MI_OK:
-        sleep(0.1)
-        continue
-    status, backData = reader.MFRC522_Anticoll()
-    buf = reader.MFRC522_Read(0)
-    reader.MFRC522_Request(reader.PICC_HALT)
-    if buf:
-        print(datetime.now().isoformat(), ':'.join([hex(x) for x in buf]))
+            url = read_tag()
+            print(url)
 
-
-   
-
-
-        if status == reader.MI_OK:
-            print(f"Found UID: {uid_1}")
-            print("Trying to use the id to select the tag")
-            (status, uid_2) = reader.MFRC522_Anticoll()
-            if status == reader.MI_OK:
-                print(f"IT WORKED, second part of uid: {uid_2}")
-                print("Selecting the tag.")
-                uid = uid_1+uid_2
-                reader.MFRC522_SelectTag(uid)
-                key = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
-                status = reader.MFRC522_Auth(reader.PICC_AUTHENT1A, 8, key, uid)
-                if status == reader.MI_OK:
-                    reader.MFRC522_Read(8)
-                    reader.MFRC522_StopCrypto1()
-                else:
-                    print("Authentication error")
-
-
-            else:
-                print("did not work")
-"""
