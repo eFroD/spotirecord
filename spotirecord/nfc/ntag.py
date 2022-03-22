@@ -29,7 +29,11 @@ while continue_reading:
         print(f"Found a Tag: {tagtype}")
 
         (status, uid_1) = reader.MFRC522_Anticoll()
-
+        if status == reader.MI_OK:
+            data = reader.MFRC522_Read(0)
+            print(f"Read from 0, this ist the data: {data}")
+            reader.MFRC522_StopCrypto1()
+"""
         if status == reader.MI_OK:
             print(f"Found UID: {uid_1}")
             print("Trying to use the id to select the tag")
@@ -50,4 +54,4 @@ while continue_reading:
 
             else:
                 print("did not work")
-
+"""
