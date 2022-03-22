@@ -30,28 +30,20 @@ while continue_reading:
 
         (status, uid_1) = reader.MFRC522_Anticoll()
         if status == reader.MI_OK:
-            data = reader.MFRC522_Read(0)
-            print(f"Read from 0, this is the data: {data}")
-            reader.MFRC522_StopCrypto1()
-            data_2 = reader.MFRC522_Read(1)
-            print(f"Read from 1, this is the data: {data_2}")
-            reader.MFRC522_StopCrypto1()
-            data_3 = reader.MFRC522_Read(2)
-            print(f"Read from 2, this is the data: {data_3}")
-            reader.MFRC522_StopCrypto1()
+            #data = reader.MFRC522_Read(0)
+            #print(f"Read from 0, this is the data: {data}")
+            #reader.MFRC522_StopCrypto1()
+            #data_2 = reader.MFRC522_Read(1)
+            #print(f"Read from 1, this is the data: {data_2}")
+            #reader.MFRC522_StopCrypto1()
+            #data_3 = reader.MFRC522_Read(2)
+            #print(f"Read from 2, this is the data: {data_3}")
+            #reader.MFRC522_StopCrypto1()
             data_4 = reader.MFRC522_Read(4)
             print(f"Read from 4, this is the user data: {data_4}")
             data_5 = reader.MFRC522_Read(5)
             print(f"Read from 5, this is the user data: {data_5}")
             reader.MFRC522_StopCrypto1()
-            key = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
-            status = reader.MFRC522_Auth(reader.PICC_AUTHENT1A, 8, key, data)
-
-            if status == reader.MI_OK:
-                reader.MFRC522_Read(8)
-                reader.MFRC522_StopCrypto1()
-            else:
-                print("Authentication error")
 
 """
         if status == reader.MI_OK:
