@@ -14,7 +14,9 @@ def read_tag():
     addresses = range(4, 40)
     data = []
     for address in addresses:
-        data.extend(["".join([chr(char) for char in reader.MFRC522_Read(address)])[-4:]])
+        read = reader.MFRC522_Read(address)
+        sleep(0.05)
+        data.extend(["".join([chr(char) for char in read])[-4:]])
         reader.MFRC522_StopCrypto1()
     return parse_link("".join(data))
 
