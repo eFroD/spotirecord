@@ -24,7 +24,10 @@ def read_tag():
 
 def parse_link(data):
     """parses the spotify album URL from the given data"""
-    end = data.index("þ")
+    if "þ" in data:
+        end = data.index("þ")
+    else:
+        end = len(data)
     return data[2:end]
 
 
