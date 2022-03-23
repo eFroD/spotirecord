@@ -59,7 +59,7 @@ def run():
                     if not url:
                         print("Okay, tag is gone, should pause here.")
                         player.current_url = None
-                        player.pause_playback()
+                        player.pause_playback_api()
                         light_controller.set_ready()
 
         except KeyboardInterrupt:

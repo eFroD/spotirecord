@@ -20,8 +20,9 @@ class LightController:
 
     def set_ready(self):
         """Fades in the light in the spotify color."""
-        self.animation_thread.join()
-        self.animation_thread = None
+        if self.animation_thread:
+            self.animation_thread.join()
+            self.animation_thread = None
         self.fade_in(self.spotify_color)
 
     def set_animation(self, mode, as_thread=True):
