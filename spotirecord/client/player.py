@@ -31,7 +31,7 @@ class Player:
         access_token = client.authenticate()
         if resume:
             request_body = {}
-            self.pause_playback()
+            self.pause_playback_api()
         else:
             uri = utils.extract_uri(url)
             request_body = {"context_uri": uri}

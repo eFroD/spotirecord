@@ -63,7 +63,7 @@ def run():
                         light_controller.set_ready()
 
         except KeyboardInterrupt:
-            player.pause_playback()
+            player.pause_playback_api()
     finally:
         if light_controller.animation_thread:
             light_controller.stop_animation()
