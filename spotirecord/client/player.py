@@ -1,8 +1,10 @@
 """This module handles playback of albums and music controls."""
 import requests
-
+import keyboard
 from spotirecord import client
 from spotirecord.client import utils
+
+PAUSE_KEY = 172
 
 
 class Player:
@@ -29,6 +31,7 @@ class Player:
         access_token = client.authenticate()
         if resume:
             request_body = {}
+            self.pause_playback()
         else:
             uri = utils.extract_uri(url)
             request_body = {"context_uri": uri}
@@ -43,6 +46,14 @@ class Player:
                                   f"Original message: {playback_result.text}")
 
     def pause_playback(self):
+        """
+        Pause the playback emulating a media keypress, instead of using the API.
+        This should provide a faster experience
+        """
+        keyboard.send(PAUSE_KEY)
+        self.paused = not self.paused
+
+    def pause_playback_api(self):
         """Pause the running playback"""
         endpoint = "https://api.spotify.com/v1/me/player/pause"
         access_token = client.authenticate()

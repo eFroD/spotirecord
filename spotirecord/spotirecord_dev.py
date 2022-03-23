@@ -61,22 +61,7 @@ def run():
                         player.current_url = None
                         player.pause_playback()
                         light_controller.set_ready()
-                # Deprecated, to be removed
-                # url = input("Your turn: ")
-                # if url == "resume":
-                #     print("resuming...")
-                #     player.play_album(resume=True)
-                # elif url == "pause":
-                #     print("pausing.")
-                #     player.pause_playback()
-                # else:
-                #     print("Starting...")
-                #     light_controller.set_animation("loading")
-                #     player.play_album(url)
-                #     cover = player.get_album_cover()
-                #     best_colors = get_best_color(cover)
-                #     light_controller.stop_animation()
-                #     light_controller.set_album_color(best_colors)
+
         except KeyboardInterrupt:
             player.pause_playback()
     finally:
