@@ -61,6 +61,7 @@ def run():
                         player.current_url = None
                         player.pause_playback_api()
                         light_controller.set_ready()
+                time.sleep(1)
 
         except KeyboardInterrupt:
             player.pause_playback_api()
