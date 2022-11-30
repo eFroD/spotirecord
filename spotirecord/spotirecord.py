@@ -29,11 +29,10 @@ def start_album(url, player, light_controller):
     print("Starting...")
     light_controller.set_animation("loading")
     player.play_album(url)
-    if light_controller.on:
-        cover = player.get_album_cover()
-        best_colors = get_best_color(cover)
-        light_controller.stop_animation()
-        light_controller.set_album_color(best_colors)
+    cover = player.get_album_cover()
+    best_colors = get_best_color(cover)
+    light_controller.stop_animation()
+    light_controller.set_album_color(best_colors)
 
 
 def run():
