@@ -9,17 +9,21 @@ from spotirecord.config import read_config
 class LightController:
     def __init__(self):
         self.light_conf = read_config()["light"]
-        self.led_count = self.light_conf["led_count"]
-        self.max_brightness = self.light_conf["led_brightness"]
-        self.spotify_color = literal_eval(self.light_conf["spotify_color"])
-        self.seeking_color = literal_eval(self.light_conf["seeking_color"])
-        self.loading_color = literal_eval(self.light_conf["loading_color"])
-        self.animation_thread = None
-        self.strip = Adafruit_NeoPixel(self.led_count, 18, 800000, 10, False, self.max_brightness, 0)
-        self.strip.begin()
+        self.on = self.light_conf["light_on"]
+        if self.on:
+            self.led_count = self.light_conf["led_count"]
+            self.max_brightness = self.light_conf["led_brightness"]
+            self.spotify_color = literal_eval(self.light_conf["spotify_color"])
+            self.seeking_color = literal_eval(self.light_conf["seeking_color"])
+            self.loading_color = literal_eval(self.light_conf["loading_color"])
+            self.animation_thread = None
+            self.strip = Adafruit_NeoPixel(self.led_count, 18, 800000, 10, False, self.max_brightness, 0)
+            self.strip.begin()
 
     def set_ready(self):
         """Fades in the light in the spotify color."""
+        if not self.on:
+            return
         if self.animation_thread:
             self.animation_thread.join()
             self.animation_thread = None
@@ -34,6 +38,8 @@ class LightController:
             as_thread: if true, the animation will loop until the function
                       "stop_seeking" is called.
         """
+        if not self.on:
+            return
         if as_thread:
             self.animation_thread = threading.Thread(target=self.start_animation_thread, args=(mode, ))
             self.animation_thread.start()
@@ -43,11 +49,15 @@ class LightController:
 
     def stop_animation(self):
         """Stops the thread that controls the seeking light animation"""
+        if not self.on:
+            return
         if self.animation_thread:
             self.animation_thread.do_run = False
 
     def set_error(self):
         """Sets the light to the error color"""
+        if not self.on:
+            return
         if self.animation_thread:
             self.animation_thread.join()
             self.animation_thread = None
@@ -60,6 +70,8 @@ class LightController:
             color: a tuple with the values (R, G, B)
             wait_time_ms: the amount of milliseconds to wait until increasing the brightness.
         """
+        if not self.on:
+            return
         for i in range(self.strip.numPixels()):
             self.strip.setPixelColor(i, Color(color[0], color[1], color[2]))
         for i in range(self.max_brightness):
@@ -74,17 +86,23 @@ class LightController:
         Args:
               wait_time_ms: the speed of the animation
         """
+        if not self.on:
+            return
         for i in reversed(range(self.max_brightness)):
             self.strip.setBrightness(i)
             self.strip.show()
             time.sleep(wait_time_ms/1000.0)
 
     def set_album_color(self, color):
+        if not self.on:
+            return
         self.animation_thread.join()
         self.animation_thread = None
         self.fade_in(color)
 
     def start_animation_thread(self, mode):
+        if not self.on:
+            return
         t = threading.currentThread()
         if mode == "seeking":
             color = self.seeking_color
@@ -96,6 +114,8 @@ class LightController:
 
     def cleanup(self):
         """Turns off all LEDs of the stripe."""
+        if not self.on:
+            return
         for i in range(self.strip.numPixels()):
             self.strip.setPixelColor(i, Color(0, 0, 0))
         self.strip.show()

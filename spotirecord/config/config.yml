@@ -5,6 +5,7 @@ device:
 
 # Here, the settings concerning the lights have their place
 light:
+  light_on: False
   led_count: 18  #  the number of LEDs that are on your strip
   led_brightness: 130  #  the brightness of your leds (max 255)
   # The original color should be (30, 215, 96), however, depending on
